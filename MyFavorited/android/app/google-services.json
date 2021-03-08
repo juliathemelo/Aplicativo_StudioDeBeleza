@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398369349975",
+    "project_id": "banco-76431",
+    "storage_bucket": "banco-76431.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398369349975:android:a0c7a6a7267e902151de12",
+        "android_client_info": {
+          "package_name": "com.example.ok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398369349975-1jnvu32ut9c1tegu450rf35f5bj4rt44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdieAFNqY4Hu-ErMaS8RxUthtHSVdv_zA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398369349975-1jnvu32ut9c1tegu450rf35f5bj4rt44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
