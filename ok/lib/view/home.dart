@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import "add_nota.dart";
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final ref = FirebaseFirestore.instance.collection("notas");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,18 +31,30 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.red[700],
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => Add()));
+        },
       ),
-      body: GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemCount: 10,
-          itemBuilder: (_, index) {
-            return Container(
-              margin: EdgeInsets.all(15),
-              height: 150,
-              color: Colors.grey[300],
-            );
+      body: StreamBuilder(
+          stream: ref.snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount:
+                    snapshot.hasData ? snapshot.data.documents.length : 0,
+                itemBuilder: (_, index) {
+                  return Container(
+                    margin: EdgeInsets.all(15),
+                    height: 150,
+                    color: Colors.grey[300],
+                    child: Column(
+                      children: [
+                        Text(snapshot.data.documents[index].data["titulo"]),
+                      ],
+                    ),
+                  );
+                });
           }),
     );
   }
