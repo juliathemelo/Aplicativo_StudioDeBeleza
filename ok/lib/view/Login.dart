@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ok/view/HomePage.dart';
 import 'package:ok/view/Welcome.dart';
 
 class LoginPage extends StatefulWidget {
@@ -111,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Start()));
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   }),
             ],
           ),
