@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ok/view/Login.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -37,8 +38,8 @@ class _StartState extends State<Start> {
                   ),
                   Image.asset(
                     "assets/rmpng.png",
-                    width: 400.0,
-                    height: 250.0,
+                    width: 500.0,
+                    height: 200.0,
                   ),
                 ],
               ),
@@ -47,7 +48,10 @@ class _StartState extends State<Start> {
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    },
                     shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.yellow[900]),
                         borderRadius: BorderRadius.circular(70)),
@@ -58,6 +62,32 @@ class _StartState extends State<Start> {
                           fontSize: 20,
                           color: Colors.yellow[900]),
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  MaterialButton(
+                    color: Colors.grey[400],
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.yellow[900]),
+                        borderRadius: BorderRadius.circular(70)),
+                    child: Text(
+                      "Sing Up",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.yellow[900]),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  Image.asset(
+                    "assets/rmsolopng.png",
+                    width: 250.0,
+                    height: 40.0,
                   ),
                 ],
               ),
