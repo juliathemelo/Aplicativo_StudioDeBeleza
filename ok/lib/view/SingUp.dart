@@ -74,7 +74,8 @@ class _SingUpState extends State<SingUp> {
           // UserUpdateInfo updateuser = UserUpdateInfo();
           // updateuser.displayName = _name;
           //  user.updateProfile(updateuser);
-          await _auth.currentUser.updateProfile(displayName: _nome.text.trim());
+          await _auth.currentUser
+              .updateProfile(displayName: _email.text.trim());
           // await Navigator.pushReplacementNamed(context,"/") ;
 
         }

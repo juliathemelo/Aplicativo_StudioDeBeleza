@@ -12,24 +12,90 @@ class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email, _password;
+  String a = "Usuario nn encontrado";
 
-  checkAuth() async {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        print(user);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Start()));
-      }
-    });
-    @override
-    void initState() {
-      super.initState();
-      this.checkAuth();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+
+  @override
+  String validateemail(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else if (!(value.contains('@') && value.contains('.com'))) {
+      return "Digite um email válido *";
+    } else {
+      return null;
     }
   }
 
-  @override
+  String validatepass(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else if (value.toString().length < 7) {
+      return "Digite uma senha com mais de 7 digitos";
+    } else {
+      return null;
+    }
+  }
+
+  void singinpSave() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      try {
+        UserCredential user = await _auth.signInWithEmailAndPassword(
+            email: _email.text.trim(), password: _password.text.trim());
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+        if (user != _email.text.trim()) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('ERROR'),
+                  content: Text("Usuario nn encontrado"),
+                  actions: <Widget>[
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'))
+                  ],
+                );
+              });
+
+          // UserUpdateInfo updateuser = UserUpdateInfo();
+          // updateuser.displayName = _name;
+          //  user.updateProfile(updateuser);
+          await _auth.currentUser
+              .updateProfile(displayName: _email.text.trim());
+          // await Navigator.pushReplacementNamed(context,"/") ;
+
+        }
+      } catch (e) {
+        showError(a);
+        print(e);
+      }
+    }
+  }
+
+  showError(String errormessage) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('ERROR'),
+            content: Text(errormessage),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
@@ -67,31 +133,27 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       Container(
                         child: TextFormField(
-                            validator: (input) {
-                              if (input.isEmpty) return "Inserir Email";
-                            },
-                            decoration: InputDecoration(
-                                labelText: "Email",
-                                prefixIcon: Icon(Icons.email)),
-                            onSaved: (input) => _email = input),
+                          controller: _email,
+                          validator: validateemail,
+                          decoration: InputDecoration(
+                              labelText: "Email",
+                              prefixIcon: Icon(Icons.email)),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Container(
                         child: TextFormField(
-                            validator: (input) {
-                              if (input.length < 6)
-                                return "Senha Precisa Ter No Minimo 6 Caracteres";
-                            },
-                            decoration: InputDecoration(
-                                labelText: "Senha",
-                                prefixIcon: Icon(Icons.lock)),
-                            obscureText: true,
-                            onSaved: (input) => _password = input),
+                          controller: _password,
+                          validator: validatepass,
+                          decoration: InputDecoration(
+                              labelText: "Senha", prefixIcon: Icon(Icons.lock)),
+                          obscureText: true,
+                        ),
                       ),
                       SizedBox(height: 50),
                       RaisedButton(
                           padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                          onPressed: login,
+                          onPressed: singinpSave,
                           child: Text(
                             "Login",
                             style: TextStyle(
@@ -119,37 +181,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  showError(String errormessage) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Erro"),
-            content: Text(errormessage),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text("Ok"),
-              ),
-            ],
-          );
-        });
-  }
-
-  login() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      try {
-        UserCredential user = await _auth.signInWithEmailAndPassword(
-            email: _email, password: _password);
-      } catch (e) {
-        showError(e.message);
-        print(e);
-      }
-    }
   }
 }
