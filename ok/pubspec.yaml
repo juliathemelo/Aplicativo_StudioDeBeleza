@@ -57,7 +57,8 @@ flutter:
   - assets/olhodesigner.png
   - assets/sobrancelhasimples.jpg
   - assets/sobrancelhacompleta.jpg
-  - assets/promocao.png 
+  - assets/promocao.png
+  - assets/limpezadepele.png  
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

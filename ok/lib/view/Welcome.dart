@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ok/view/Login.dart';
+import 'package:ok/view/SingUp.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -68,7 +69,10 @@ class _StartState extends State<Start> {
                     color: Colors.grey[400],
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SingUp()));
+                    },
                     shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.yellow[900]),
                         borderRadius: BorderRadius.circular(70)),
