@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PlanosContainer extends StatelessWidget {
@@ -71,4 +72,22 @@ class PlanosContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+var _firestore = FirebaseFirestore.instance;
+
+class StudioUser {
+  String email;
+  String name;
+  String telefone;
+  StudioUser(this.email, this.name, this.telefone);
+
+  Map<String, dynamic> toMap() {
+    return {"email": email, "nome": name, "telefone": telefone};
+  }
+}
+
+AddInfo(email, name, telefone) {
+  var user = StudioUser(email, name, telefone);
+  _firestore.collection("usuarios").doc(email).set(user.toMap());
 }

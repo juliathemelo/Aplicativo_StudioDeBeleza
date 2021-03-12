@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ok/view/HomePage.dart';
+import 'package:provider/provider.dart';
+import 'package:ok/controller/controller.dart';
 
 class SingUp extends StatefulWidget {
   @override
@@ -12,49 +14,72 @@ class _SingUpState extends State<SingUp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email, _password, _name, _phone;
-
   String a = "Usuario nn encontrado";
 
-  checkAuth() async {
-    _auth.authStateChanges().listen((user) async {
-      if (user != null) {
-        Navigator.pushReplacementNamed(context, "/");
-      }
-    });
-  }
-
-  TextEditingController email = TextEditingController();
-  TextEditingController telefone = TextEditingController();
-  TextEditingController nome = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _telefone = TextEditingController();
+  TextEditingController _nome = TextEditingController();
+  TextEditingController _password = TextEditingController();
 
   CollectionReference ref = FirebaseFirestore.instance.collection("usuarios");
   @override
-  void initState() {
-    super.initState();
-    this.checkAuth();
+  String validateemail(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else if (!(value.contains('@') && value.contains('.com'))) {
+      return "Digite um email válido *";
+    } else {
+      return null;
+    }
   }
 
-  signUp() async {
-    if (email != "@") {
-      ref.add(
-          {"email": email.text, "telefone": telefone.text, "nome": nome.text});
+  String validatepass(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else if (value.toString().length < 7) {
+      return "Digite uma senha com mais de 7 digitos";
+    } else {
+      return null;
     }
+  }
+
+  String validatename(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else {
+      return null;
+    }
+  }
+
+  String validatephone(value) {
+    if (value.isEmpty) {
+      return "Campo obrigatório *";
+    } else if (value.toString().length < 11) {
+      return "Digite o seu DDD + Número";
+    } else {
+      return null;
+    }
+  }
+
+  void singupSave() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-
       try {
         UserCredential user = await _auth.createUserWithEmailAndPassword(
-            email: _email, password: _password);
+            email: _email.text.trim(), password: _password.text.trim());
+        AddInfo(_email.text.trim(), _nome.text.trim(), _telefone.text.trim());
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
         if (user != null) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-          await _auth.currentUser.updateProfile(displayName: _name);
-        } else if (user != _email) {
-          showError(a);
+          // UserUpdateInfo updateuser = UserUpdateInfo();
+          // updateuser.displayName = _name;
+          //  user.updateProfile(updateuser);
+          await _auth.currentUser.updateProfile(displayName: _nome.text.trim());
+          // await Navigator.pushReplacementNamed(context,"/") ;
+
         }
       } catch (e) {
-        showError(e.message);
+        showError(a);
         print(e);
       }
     }
@@ -99,66 +124,61 @@ class _SingUpState extends State<SingUp> {
                     children: <Widget>[
                       Container(
                         child: TextFormField(
-                          validator: (input) {
-                            if (input.isEmpty) return "Enter Name";
-                          },
+                          validator: validatename,
+                          controller: _nome,
                           decoration: InputDecoration(
                             labelText: "Name",
                             prefixIcon: Icon(Icons.person),
                           ),
-                          onSaved: (input) => _name = input,
                         ),
                       ),
                       SizedBox(height: 10),
                       Container(
                         child: TextFormField(
-                            controller: email,
-                            validator: (input) {
-                              if (input.isEmpty) return 'Enter Email';
-                            },
-                            decoration: InputDecoration(
-                                labelText: 'Email',
-                                prefixIcon: Icon(Icons.email)),
-                            onSaved: (input) => _email = input),
+                          controller: _email,
+                          validator: validateemail,
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email)),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Container(
                         child: TextFormField(
-                            controller: telefone,
-                            validator: (input) {
-                              if (input.length < 11)
-                                return 'Enter Phone with DDD';
-                            },
-                            decoration: InputDecoration(
-                                labelText: "DDD + 9 + Phone",
-                                prefixIcon: Icon(Icons.email)),
-                            onSaved: (input) => _email = input),
+                          controller: _telefone,
+                          validator: validatephone,
+                          decoration: InputDecoration(
+                              labelText: "DDD + 9 + Phone",
+                              prefixIcon: Icon(Icons.email)),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Container(
                         child: TextFormField(
-                            obscureText: true,
-                            validator: (input) {
-                              if (input.length < 6)
-                                return 'Enter Password, Minimum 6 Character';
-                            },
-                            decoration: InputDecoration(
-                                labelText: 'Senha',
-                                prefixIcon: Icon(Icons.email)),
-                            onSaved: (input) => _email = input),
+                          obscureText: true,
+                          validator: validatepass,
+                          controller: _password,
+                          decoration: InputDecoration(
+                              labelText: 'Senha',
+                              prefixIcon: Icon(Icons.email)),
+                        ),
                       ),
                       SizedBox(height: 30),
-                      RaisedButton(
-                        padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                        onPressed: signUp,
-                        child: Text('SignUp',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold)),
-                        color: Colors.yellow[900],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 55, right: 55),
+                          child: ElevatedButton(
+                              child: Text("Cadastrar"),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.yellow[900],
+                                minimumSize: Size(370, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                              ),
+                              onPressed: () {
+                                singupSave();
+                              }),
                         ),
                       ),
                     ],
