@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+import 'package:ok/controller/controller.dart';
 import 'package:ok/view/HomePage.dart';
 import 'package:ok/view/Welcome.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -38,42 +41,23 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void singinpSave() async {
+  void singinSave() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       try {
-        UserCredential user = await _auth.signInWithEmailAndPassword(
+        final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _email.text.trim(), password: _password.text.trim());
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
-        if (user != _email.text.trim()) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('ERROR'),
-                  content: Text("Usuario nn encontrado"),
-                  actions: <Widget>[
-                    FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('OK'))
-                  ],
-                );
-              });
-
-          // UserUpdateInfo updateuser = UserUpdateInfo();
-          // updateuser.displayName = _name;
-          //  user.updateProfile(updateuser);
-          await _auth.currentUser
-              .updateProfile(displayName: _email.text.trim());
-          // await Navigator.pushReplacementNamed(context,"/") ;
-
-        }
       } catch (e) {
-        showError(a);
-        print(e);
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+          showError("Esse Email Não Está Cadastrado");
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      } catch (_) {
+        print("nn deu certo");
       }
     }
   }
@@ -83,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('ERROR'),
+            title: Text('Erro'),
             content: Text(errormessage),
             actions: <Widget>[
               FlatButton(
@@ -153,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(height: 50),
                       RaisedButton(
                           padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                          onPressed: singinpSave,
+                          onPressed: singinSave,
                           child: Text(
                             "Login",
                             style: TextStyle(
