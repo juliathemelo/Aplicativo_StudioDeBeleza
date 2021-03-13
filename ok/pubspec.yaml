@@ -59,7 +59,11 @@ flutter:
   - assets/sobrancelhacompleta.jpg
   - assets/promocao.png
   - assets/limpezadepele.png  
-  #   - images/a_dot_ham.jpeg
+  - assets/botox.jpg
+  - assets/limpeza.jpg
+  - assets/hidratacao.jpg
+ 
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

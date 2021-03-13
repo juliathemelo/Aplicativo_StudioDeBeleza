@@ -41,7 +41,15 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           controller: cont,
           children: <Widget>[
-            SizedBox(height: paddefault),
+            SizedBox(height: 25),
+            Container(
+              height: 100,
+              child: Image(
+                image: AssetImage("assets/rmpng.png"),
+                fit: BoxFit.contain,
+              ),
+            ),
+            Divider(color: Colors.yellow[900]),
             SizedBox(height: 15),
             PlanosContainer(
               width: 1,
@@ -94,13 +102,52 @@ class _HomePageState extends State<HomePage> {
               horizontal: 15,
               vertical: 10,
               text: "Limpeza De Pele",
-              image: "assets/sobrancelhacompleta.jpg",
+              image: "assets/limpeza.jpg",
               action: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => SobramcelhaSimples()));
               },
+            ),
+            SizedBox(height: 15),
+            PlanosContainer(
+              width: 1,
+              height: 100,
+              horizontal: 15,
+              vertical: 10,
+              text: "Botox Capilar",
+              image: "assets/botox.jpg",
+              action: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SobramcelhaSimples()));
+              },
+            ),
+            SizedBox(height: 15),
+            PlanosContainer(
+              width: 1,
+              height: 100,
+              horizontal: 15,
+              vertical: 10,
+              text: "Hidratação Capilar",
+              image: "assets/hidratacao.jpg",
+              action: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SobramcelhaSimples()));
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: Colors.yellow[900],
+            ),
+            SizedBox(
+              height: 10,
             ),
           ],
         ),

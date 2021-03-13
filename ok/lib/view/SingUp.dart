@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ok/view/HomePage.dart';
+import 'package:ok/view/Login.dart';
 import 'package:provider/provider.dart';
 import 'package:ok/controller/controller.dart';
 
@@ -186,6 +187,17 @@ class _SingUpState extends State<SingUp> {
                   ),
                 ),
               ),
+              SizedBox(height: 20),
+              GestureDetector(
+                  child: Text(
+                    "Sing In Acount",
+                    style: TextStyle(
+                        color: Colors.yellow[900], fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }),
             ],
           ),
         ),
