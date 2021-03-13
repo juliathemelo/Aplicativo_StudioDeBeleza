@@ -164,3 +164,23 @@ class AuthenticationService {
     }
   }
 }
+
+class Servico {
+  final int position;
+  final String name;
+  final String iconImage;
+  final String description;
+  final List<String> images;
+
+  Servico(this.position,
+      {this.name, this.iconImage, this.description, this.images});
+}
+
+List<Servico> servico = [
+  Servico(1,
+      name: "Sobrancelha Simples",
+      iconImage: "assets/detalhe.png",
+      description:
+          "Preço: 35,00 - Não Acompanha Henna. Serviço de limpeza e desenho para a sua sobrancelha dando um novo olhar glamouroso. Agende agora o seu serviço.",
+      images: ["assets/limpezadepele.png", "assets/promocao.png"]),
+];

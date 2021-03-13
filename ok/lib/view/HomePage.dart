@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(height: 15),
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(height: 15),
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(height: 15),
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(height: 15),
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(height: 15),
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SobramcelhaSimples()));
+                        builder: (context) => SobrancelhaSimples()));
               },
             ),
             SizedBox(

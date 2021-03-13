@@ -34,6 +34,7 @@ dependencies:
   firebase_auth: ^0.20.0+1 
   firebase_analytics: ^5.0.2
   provider: ^4.3.2+1
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
   - assets/botox.jpg
   - assets/limpeza.jpg
   - assets/hidratacao.jpg
+  - assets/detalhe.png
  
 
 
