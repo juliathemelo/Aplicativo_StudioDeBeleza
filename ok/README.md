@@ -1,16 +1,24 @@
-# ok
 
-A new Flutter project.
+# Studio De Beleza
 
-## Getting Started
+<h1 align="center">
+    <a href="https://github.com/juliathemelo/Aplicativo_StudioDeBeleza">Studio De Beleza</a>
+</h1>
+<p align="center">*Projeto mobile com o intuito de criar um aplicativo voltado para empresas de "Beleza"*</p>
 
-This project is a starting point for a Flutter application.
+## Conteúdo
 
-A few resources to get you started if this is your first Flutter project:
+<p align="center">
+ <a href="#objetivo">Objetivo</a> • Trabalhar melhor com recursos flutter para o desenvolvimentos de aplicativos mais sofisticados
+ <a href="#tecnologias">Tecnologias</a> • Flutter/Dart , FirebaseAuth e CloudFirestorage.
+ <a href="#autor">Autora</a> • Júlia de Melo Albuquerque
+</p>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Funções
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] Cadastro de usuário
+- [x] Login do usuário
+- [x] Serviços
+- [x] Função de agendar por Whatsapp
+- [ ] Perfil
+- [ ] Pequenos Ajustes
