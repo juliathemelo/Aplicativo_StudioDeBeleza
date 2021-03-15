@@ -36,6 +36,7 @@ dependencies:
   provider: ^4.3.2+1
   carousel_slider: ^3.0.0
   url_launcher: ^5.7.2
+  flutter_open_whatsapp: ^0.1.2
 
 dev_dependencies:
   flutter_test:

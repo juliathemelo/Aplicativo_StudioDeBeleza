@@ -3,16 +3,12 @@ import 'package:ok/controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class SobrancelhaSimples extends StatelessWidget {
   String telefone;
 
   SobrancelhaSimples({this.telefone});
-
-  void lauchWhatsapp({@required number, @required message}) async {
-    String url = "whatsapp://send?phone=$number=$message";
-    await canLaunch(url) ? launch(url) : print("Can't Open Whatsapp");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,10 +175,8 @@ class SobrancelhaSimples extends StatelessWidget {
                         color: Colors.yellow[800],
                         padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
                         onPressed: () {
-                          lauchWhatsapp(
-                              number: "+81996524630",
-                              message:
-                                  "Olá Roberta, Gostaria de marcar uma consulta de Sobrancelha Simples ! (Informar nome, horário e endereço)");
+                          FlutterOpenWhatsapp.sendSingleMessage("5581996524630",
+                              "Olá Roberta ! Gostaria de agendar o serviço Sobrancelha Simples ! (Informar: Horário, Local e Nome)");
                         },
                         child: Text(
                           "Agendar Agora",
