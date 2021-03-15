@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:ok/controller/controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SobrancelhaSimples extends StatelessWidget {
-  final Servico servico;
+  String telefone;
 
-  const SobrancelhaSimples({Key key, this.servico}) : super(key: key);
+  SobrancelhaSimples({this.telefone});
+
+  void lauchWhatsapp({@required number, @required message}) async {
+    String url = "whatsapp://send?phone=$number=$message";
+    await canLaunch(url) ? launch(url) : print("Can't Open Whatsapp");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,6 +117,58 @@ class SobrancelhaSimples extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            Container(
+                              margin: EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/hidratacao.jpg"),
+                                    fit: BoxFit.cover),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(""),
+                                  Padding(
+                                    padding: const EdgeInsets.all(58),
+                                    child: Text(
+                                      "Cliente: Arthut",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w300),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                    image: AssetImage("assets/botox.jpg"),
+                                    fit: BoxFit.cover),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(""),
+                                  Padding(
+                                    padding: const EdgeInsets.all(58),
+                                    child: Text(
+                                      "Cliente: Carla",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w300),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -118,7 +178,12 @@ class SobrancelhaSimples extends StatelessWidget {
                     child: RaisedButton(
                         color: Colors.yellow[800],
                         padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
-                        onPressed: () {},
+                        onPressed: () {
+                          lauchWhatsapp(
+                              number: "+81996524630",
+                              message:
+                                  "Olá Roberta, Gostaria de marcar uma consulta de Sobrancelha Simples ! (Informar nome, horário e endereço)");
+                        },
                         child: Text(
                           "Agendar Agora",
                           style: TextStyle(

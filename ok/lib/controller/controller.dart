@@ -102,6 +102,14 @@ getEmail(user) {
   }
 }
 
+getPhone(user) {
+  try {
+    return user.telefone;
+  } catch (e) {
+    return 'erro';
+  }
+}
+
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -184,3 +192,32 @@ List<Servico> servico = [
           "Preço: 35,00 - Não Acompanha Henna. Serviço de limpeza e desenho para a sua sobrancelha dando um novo olhar glamouroso. Agende agora o seu serviço.",
       images: ["assets/limpezadepele.png", "assets/promocao.png"]),
 ];
+
+class GetUserName extends StatelessWidget {
+  final String email;
+
+  GetUserName(this.email);
+
+  @override
+  Widget build(BuildContext context) {
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('usuarios');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(email).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data();
+          return Text("Full Name: ${data['telefone']}");
+        }
+
+        return Text("loading");
+      },
+    );
+  }
+}

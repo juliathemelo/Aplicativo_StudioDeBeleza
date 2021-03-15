@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ok/view/HomePage.dart';
 import 'package:ok/view/Login.dart';
+import 'package:ok/view/sobrancelhasim.dart';
 import 'package:provider/provider.dart';
 import 'package:ok/controller/controller.dart';
 
@@ -71,6 +72,7 @@ class _SingUpState extends State<SingUp> {
         AddInfo(_email.text.trim(), _nome.text.trim(), _telefone.text.trim());
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomePage()));
+
         if (user != null) {
           // UserUpdateInfo updateuser = UserUpdateInfo();
           // updateuser.displayName = _name;
