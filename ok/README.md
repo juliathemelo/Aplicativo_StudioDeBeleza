@@ -9,9 +9,9 @@
 ## Conteúdo
 
 <p align="center">
- <a href="#objetivo">Objetivo</a> • Trabalhar melhor com recursos flutter para o desenvolvimentos de aplicativos mais sofisticados
- <a href="#tecnologias">Tecnologias</a> • Flutter/Dart , FirebaseAuth e CloudFirestorage.
- <a href="#autor">Autora</a> • Júlia de Melo Albuquerque
+ <a href="#objetivo">Objetivo</a> • Trabalhar melhor com recursos flutter para o desenvolvimentos de aplicativos mais sofisticados</br>
+ <a href="#tecnologias">Tecnologias</a> • Flutter/Dart , FirebaseAuth e CloudFirestorage.</br>
+ <a href="#autor">Autora</a> • Júlia de Melo Albuquerque</br>
 </p>
 
 ### Funções
